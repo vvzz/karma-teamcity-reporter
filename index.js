@@ -45,16 +45,18 @@ var TeamcityReporter = function(baseReporterDecorator) {
   };
   this.onBrowserStart = function (browser) {
     this._browsers.push(browser);
+    console.log('browser starting: '+browser.name)
 
-    this.browserResults[browser.id] = {
-      name: browser.name,
-      log : [],
-      lastSuite : null
-    };
+      this.browserResults[browser.id] = {
+        name: browser.name,
+        log : [],
+        lastSuite : null
+      };
   };
 
 
   this.specSuccess = function(browser, result) {
+    console.log('specc success:'+result.description)
     var log = this.getLog(browser, result);
     var testName = result.description;
 
@@ -94,6 +96,7 @@ var TeamcityReporter = function(baseReporterDecorator) {
   };
 
   this.getLog = function(browser, result) {
+    console.log('getting log for browser id: '+browser.id)
     var browserResult = this.browserResults[browser.id];
     var suiteName = browser.name;
     var moduleName = result.suite.join(' ');
